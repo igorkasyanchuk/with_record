@@ -80,6 +80,12 @@ Or install it yourself as:
 $ gem install with_record
 ```
 
+## How it works and limitations
+
+- it's adding 2 methods to AR Relations and Associations.
+- it's executing original scope, returning and ID's (or other PK values), then adding a new ID into it and returning a new releation
+- joins, includes, ... before call `.with_record` won't be returned in final scope
+
 ## Contributing
 
 You are welcome to contribute.

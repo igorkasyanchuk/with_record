@@ -1,8 +1,55 @@
-# WithRecord
-Short description and motivation.
+# with_record
+
+This gem could DRY your code if you are using "soft deletion" in your application.
+
+The example of problem:
+
+You have models 2 models: User and Project. User has many projects. Project belongs to "assignee" (or author).
+
+Let's say you have "soft-delete" (for example using paranoia" gem) and deleted user. Same time, all projects are still available (you just have such logic).
+
+Now you want to edit the project. And in the form you have a dropdown with all active users. In this case list will be blank (because user was deleted).
+
+So usually you need to do something like:
+
+```
+# just an example
+= f.input :assignee_id, as: :select, collection: User.all + [User.unscoped.find_by(id: f.object.assineed_id)]
+```
+
+But now you can do the following:
+```
+# just an example
+= f.input :assignee_id, as: :select, collection: User.all.with_record(f.object.assineed_id)
+```
+
 
 ## Usage
-How to use my plugin.
+
+This gem is adding two methods to ActiveRecord Relations and Associations - `with_record(...)` and `with_records(...)`.
+
+You can do the following:
+
+```ruby
+    u1 = User.create(name: 'John')
+    u2 = User.create(name: 'Bob')
+
+    p1 = u1.projects.create(name: 'apple')
+    p2 = u2.projects.create(name: 'google')
+    p3 = u2.projects.create(name: 'amazon')
+
+    assert_equal u1.projects.with_record(p2), [p1, p2]
+    assert_equal u1.projects.with_records(p2, p3), [p1, p2, p3]
+    assert_equal u1.projects.with_records([p2, p3]), [p1, p2, p3]
+
+    assert_equal Project.where(id: p1.id).with_record(p2), [p1, p2]
+    assert_equal Project.where(id: p1.id).with_records(p2, p3), [p1, p2, p3]
+    assert_equal Project.where(id: p1.id).with_records([p2, p3]), [p1, p2, p3]
+
+    assert_equal Project.where(id: p1.id).with_record(nil), [p1]    
+    assert_equal Project.where(id: p1.id).with_records(nil), [p1]
+ ```
+
 
 ## Installation
 Add this line to your application's Gemfile:

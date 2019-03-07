@@ -20,5 +20,8 @@ class WithRecord::Test < ActiveSupport::TestCase
     assert_equal Project.where(id: p1.id).with_record(p2), [p1, p2]
     assert_equal Project.where(id: p1.id).with_records(p2, p3), [p1, p2, p3]
     assert_equal Project.where(id: p1.id).with_records([p2, p3]), [p1, p2, p3]
+
+    assert_equal Project.where(id: p1.id).with_record(nil), [p1]    
+    assert_equal Project.where(id: p1.id).with_records(nil), [p1]
   end
 end

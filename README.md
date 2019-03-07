@@ -1,8 +1,8 @@
 # with_record
 
-This gem could DRY your code if you are using "soft deletion" in your application.
+This gem could DRY your code and return association/relation with additioanl records. Could be used in case you have form with soft-deleted value. 
 
-The example of problem:
+**The example of problem:**
 
 You have models 2 models: User and Project. User has many projects. Project belongs to "assignee" (or author).
 

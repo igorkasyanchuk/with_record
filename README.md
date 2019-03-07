@@ -12,26 +12,26 @@ Now you want to edit the project. And in the form you have a dropdown with all a
 
 So usually you need to do something like:
 
-```
-# just an example with problem
+```slim
+# just an example with problem (!!!)
 = f.input :assignee_id, as: :select, collection: User.all + [User.unscoped.find_by(id: f.object.assineed_id)]
 ```
 
 But now you can do the following:
-```
-# just an example
+```slim
+# just an example with solution
 = f.input :assignee_id, as: :select, collection: User.all.with_record(f.object.assineed_id)
 ```
 
 And as a bonus you can also call scopes for example:
 
-```
+```ruby
 User.all.with_record(f.object.assineed_id).ordered` # to return by first_name
 ```
 
 Or
 
-```
+```ruby
 @project.users.with_record(42).ordered # to include user by ID
 @project.users.with_records(42, 43, 44).ordered # to include user by ID's
 ```

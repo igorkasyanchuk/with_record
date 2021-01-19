@@ -1,5 +1,7 @@
 # with_record
 
+[![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
+
 This gem could DRY your code and return association/relation with additioanl records. Could be used in case you have form with soft-deleted value. 
 
 **The example of problem:**

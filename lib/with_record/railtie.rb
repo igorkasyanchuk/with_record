@@ -15,10 +15,10 @@ module WithRecord
     end
 
     config.after_initialize do
-      # load models
-      Rails.application.eager_load!
-      ActiveRecord::Relation.send :include, Extension
-      ActiveRecord::Associations::CollectionProxy.send :include, Extension
+      ActiveSupport.on_load(:active_record) do
+        ActiveRecord::Relation.send :include, Extension
+        ActiveRecord::Associations::CollectionProxy.send :include, Extension
+      end
     end
   end
 end

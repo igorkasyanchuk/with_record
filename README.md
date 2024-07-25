@@ -7,7 +7,7 @@ This gem could DRY your code and return association/relation with additioanl rec
 
 **The example of problem:**
 
-You have models 2 models: User and Project. User has many projects. Project belongs to "assignee" (or author).
+You have 2 models: User and Project. User has many projects. Project belongs to "assignee" (or author).
 
 Let's say you have "soft-delete" (for example using paranoia" gem) and deleted user. Same time, all projects are still available (you just have such logic).
 
